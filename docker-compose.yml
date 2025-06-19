@@ -1,0 +1,13 @@
+services:
+  timescaledb:
+    image: timescale/timescaledb:2.17.0-pg17-bitnami
+    container_name: timescaledb
+    environment:
+      POSTGRES_DB: mydatabase
+      POSTGRES_USER: myuser
+      POSTGRES_PASSWORD: mypassword
+    ports:
+      - "5432:5432"
+    volumes:
+      - ./volumes/timescaledb:/var/lib/postgresql/data
+    restart: always

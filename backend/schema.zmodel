@@ -1,0 +1,60 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+  // output   = "../generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+abstract model BaseEntity {
+
+  id              Int           @id @default(autoincrement())
+  uid             String?       @unique 
+  name            String        @unique
+
+  owned_by        Int? 
+
+  created_at      DateTime      @default(now()) 
+  created_by      Int?
+  updated_at      DateTime      @updatedAt 
+  updated_by      Int?
+  deleted_at      DateTime?     
+  deleted_by      Int?
+
+  //@@allow('read, update', auth().id == owned_by)
+  @@allow('all', auth().role == "ADMIN" || auth().role == "SYSTEM")
+  @@allow('all', auth().id == owned_by)
+  @@allow('read', true)
+}
+
+// ruoli: user,admin
+model User extends BaseEntity {
+
+  email           String?       @unique 
+  phash           String?       @omit
+  role            String?       
+  disabled        Boolean       @default(false)
+
+  clients         Client[]
+  
+  @@deny('delete', name == "system") // Nega l'eliminazione dell'utente "system"
+  @@deny('update', name == "system" && auth().name != "system") // Nega l'aggiornamento dell'utente "system" se non fatto da se stesso
+}
+
+model Client extends BaseEntity {
+
+  agent           String        
+  token           String?       
+  sessions        Int           @default(0)
+ 
+  user_id         Int?         
+  user            User?         @relation(fields: [user_id], references: [id])
+}
