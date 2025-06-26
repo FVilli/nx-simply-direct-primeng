@@ -1,6 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, computed, inject } from '@angular/core';
 import { Router } from '@angular/router';
-import { NG_MODULES, PRIME_NG_MODULES } from '../../../../main';
+import { NG_MODULES } from '../../../../imports.modules';
+import { PRIME_NG_MODULES } from '../../../../imports.primeng';
+import { CoreService } from '@simply-direct/ngx-core';
 
 
 @Component({
@@ -13,7 +15,7 @@ import { NG_MODULES, PRIME_NG_MODULES } from '../../../../main';
             <span>Appliance</span>
         </div>
 
-        <a pButton [text]="true" severity="secondary" [rounded]="true" pRipple class="lg:!hidden" pStyleClass="@next" enterClass="hidden" leaveToClass="hidden" [hideOnOutsideClick]="true">
+        <a pButton [text]="true" severity="secondary" [rounded]="true" pRipple class="lg:!hidden" pStyleClass="@next" enterFromClass="hidden" leaveToClass="hidden" [hideOnOutsideClick]="true">
             <i class="pi pi-bars !text-2xl"></i>
         </a>
 
@@ -41,11 +43,18 @@ import { NG_MODULES, PRIME_NG_MODULES } from '../../../../main';
                 </li>
             </ul>
             <div class="flex border-t lg:border-t-0 border-surface py-4 lg:py-0 mt-4 lg:mt-0 gap-2">
-                <button pButton pRipple label="Login" routerLink="/auth/login" [rounded]="true" [text]="true"></button>
-                <button pButton pRipple label="Register" routerLink="/auth/login" [rounded]="true"></button>
+                @if(!core.$auth()) {
+                    <button pButton pRipple label="Login" routerLink="/auth/login" [rounded]="true" [text]="true"></button>
+                    <button pButton pRipple label="Register" routerLink="/auth/login" [rounded]="true"></button>
+                } 
+                @else {
+                    <p-button [label]="$username() + ' > home'" icon="pi pi-user" rounded severity="info" routerLink="/wa"></p-button>
+                }
             </div>
         </div> `
 })
 export class TopbarWidget {
+    readonly core = inject(CoreService);
+    $username = computed(() => this.core.$auth()?.user?.name);
     constructor(public router: Router) {}
 }

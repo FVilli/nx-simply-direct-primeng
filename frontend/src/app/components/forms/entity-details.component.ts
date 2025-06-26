@@ -1,5 +1,7 @@
 import { Component, input } from '@angular/core';
-import { NG_MODULES, PRIME_NG_MODULES } from '../../../main';
+import { NG_MODULES } from '../../../imports.modules';
+import { PRIME_NG_MODULES } from '../../../imports.primeng';
+
 
 export interface IItem { created_at?: Date, updated_at?: Date, created_by_user?: string, updated_by_user?: string }
 

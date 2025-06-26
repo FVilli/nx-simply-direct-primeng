@@ -1,9 +1,11 @@
 import { Component, effect, inject, OnInit, signal, ViewChild } from '@angular/core';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { Table } from 'primeng/table';
-import { Product, ProductService } from '../../service/product.service';
+import { ProductService } from '../../service/product.service';
 import { UsersCrudStore, UserWithPassword } from './users.store';
-import { COMPONENTS, NG_MODULES, PRIME_NG_MODULES } from '../../../../main';
+import { NG_MODULES } from '../../../../imports.modules';
+import { PRIME_NG_MODULES } from '../../../../imports.primeng';
+import { COMPONENTS } from '../../../../imports.components';
 
 
 interface Column {

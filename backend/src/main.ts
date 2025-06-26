@@ -10,7 +10,7 @@ async function bootstrap() {
   const server = express();
   const app = await NestFactory.create<NestExpressApplication>(AppModule, new ExpressAdapter(server));
 
-  const frontend_folder = join(__dirname, 'web-ui/browser');
+  const frontend_folder = join(__dirname, '../../../frontend/dist/browser');
   //console.log(frontend_folder);
   server.use(express.static(frontend_folder));
   server.get('*all', (req, res) => {

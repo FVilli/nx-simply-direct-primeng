@@ -2,7 +2,7 @@ import { inject } from "@angular/core";
 import { patchState, signalStore, type, withMethods, withState } from "@ngrx/signals";
 import { withDevtools } from '@angular-architects/ngrx-toolkit';
 import { User } from "@simply-direct/common";
-import { AuditInfo, CoreService, setBusy, setError, withCrudEntities } from "@simply-direct/ngx-core";
+import { AuditInfo, CoreService, GetHash, setBusy, setError, withCrudEntities } from "@simply-direct/ngx-core";
 
 export type UserWithPassword = User & { password1?: string; password2?: string; };
 
@@ -24,7 +24,6 @@ export const UsersCrudStore = signalStore(
     withMethods(store => { 
 
         const core = inject(CoreService);
-
         const _createUser = async (userVM: Partial<UserWithPassword>)=>{
             patchState(store, setBusy(true),setError());
             try {
@@ -60,7 +59,7 @@ export const UsersCrudStore = signalStore(
 
 async function mngPassword(core: CoreService, item: Partial<UserWithPassword>):Promise<Partial<User>> {
     if(!item.password1) return item;
-    const pHash = await core.request<string>("UtilsService.hash", item.password1);
+    const pHash = await GetHash(item.password1);
     item.phash = pHash;
     delete item.password1;
     delete item.password2;
