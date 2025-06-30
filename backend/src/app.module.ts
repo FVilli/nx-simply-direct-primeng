@@ -1,8 +1,9 @@
 import { Module, OnApplicationBootstrap } from '@nestjs/common';
 import { AppService } from './app.service';
-import { CoreGateway, CoreModule } from '@simply-direct/nestjs-core';
+import { CoreGateway, CoreModule, PrismaService } from '@simply-direct/nestjs-core';
 import { EventEmitterModule } from '@nestjs/event-emitter';
 import { ENV } from './env';
+import { TestService } from './test.service';
 
 @Module({
   imports: [EventEmitterModule.forRoot({
@@ -19,14 +20,20 @@ import { ENV } from './env';
     jwtSecret: ENV.JWT_SECRET, 
     jwtExpiresIn: ENV.JWT_EXPIRES_IN, 
     skipAuth: ENV.SKIP_AUTH, 
-    notAllowedPrismaMethods: ENV.NOT_ALLOWED_PRISMA_METHODS 
+    notAllowedPrismaMethods: ENV.NOT_ALLOWED_PRISMA_METHODS,
   })],
   controllers: [],
-  providers: [AppService],
+  providers: [AppService,TestService,PrismaService],
 })
 export class AppModule implements OnApplicationBootstrap {
-  constructor(private gtw: CoreGateway, private appService: AppService) {}
+  constructor(
+    private gtw: CoreGateway, 
+    private appService: AppService, 
+    private testService: TestService) {
+    this.gtw.log(true);
+  }
   async onApplicationBootstrap() {
     this.gtw.register(this.appService.serviceName, this.appService, false);
+    this.gtw.register(this.testService.serviceName, this.testService, false);
   }
 }

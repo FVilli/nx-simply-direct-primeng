@@ -19,6 +19,8 @@
         "module": "ES2022",
         "paths": {
             "@common/*":["../backend/src/common/*"],
+            "@prisma/*": ["../backend/node_modules/@prisma/*"],
+            "@generated/*":["./src/@generated/*"],
          }
     },
     "angularCompilerOptions": {

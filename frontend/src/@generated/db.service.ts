@@ -1,0 +1,48 @@
+
+// =====================================================
+//  NON MODIFICARE QUESTO FILE !!
+//  QUESTO FILE VIENE GENERATO AUTOMATICAMENTE ...
+//  LEGGERE ATTENTAMENTE LE ISTRUZIONI !!! 
+// =====================================================
+
+import { inject, Injectable } from "@angular/core";
+import { CoreService } from "@simply-direct/ngx-core";
+import { Prisma,User,Client } from "@prisma/client"
+
+@Injectable()
+export class DbService {
+    private readonly core = inject(CoreService);
+    
+    user = {
+        create: async (args:Prisma.UserCreateArgs):Promise<User | null> => { return await this.core.prisma('user.create',args); },
+        createMany: async (args:Prisma.UserCreateManyArgs): Promise<Prisma.BatchPayload | null> => { return await this.core.prisma('user.createMany',args); },
+        findMany: async (args?: Prisma.UserFindManyArgs):Promise<User[] | null> => { return await this.core.prisma('user.findMany',args); },
+        findFirst: async (args?: Prisma.UserFindFirstArgs):Promise<User | null> => { return await this.core.prisma('user.findFirst',args); },
+        findUnique: async (args:Prisma.UserFindUniqueArgs):Promise<User | null> => { return await this.core.prisma('user.findUnique',args); },
+        update: async (args: Prisma.UserUpdateArgs):Promise<User | null> => { return await this.core.prisma('user.update',args); },
+        updateMany: async (args: Prisma.UserUpdateManyArgs): Promise<Prisma.BatchPayload | null> => { return await this.core.prisma('user.updateMany',args); },
+        upsert: async (args:Prisma.UserUpsertArgs):Promise<User | null> => { return await this.core.prisma('user.upsert',args); },
+        count: async (args?:Prisma.UserCountArgs): Promise<number | null> => { return await this.core.prisma('user.count',args); },
+        aggregate: async (args:Prisma.UserAggregateArgs): Promise<Prisma.GetUserAggregateType<Prisma.UserAggregateArgs> | null> => { return await this.core.prisma('user.aggregate',args); },
+        groupBy: async <T>(args:Prisma.UserGroupByArgs): Promise<T[] | null> => { return await this.core.prisma('user.groupBy',args); },
+        delete: async (args:Prisma.UserDeleteArgs): Promise<User | null> => { return await this.core.prisma('user.delete',args); },
+        deleteMany: async (args?:Prisma.UserDeleteManyArgs): Promise<Prisma.BatchPayload | null> => { return await this.core.prisma('user.deleteMany',args); },     
+    }
+
+    client = {
+        create: async (args:Prisma.ClientCreateArgs):Promise<Client | null> => { return await this.core.prisma('client.create',args); },
+        createMany: async (args:Prisma.ClientCreateManyArgs): Promise<Prisma.BatchPayload | null> => { return await this.core.prisma('client.createMany',args); },
+        findMany: async (args?: Prisma.ClientFindManyArgs):Promise<Client[] | null> => { return await this.core.prisma('client.findMany',args); },
+        findFirst: async (args?: Prisma.ClientFindFirstArgs):Promise<Client | null> => { return await this.core.prisma('client.findFirst',args); },
+        findUnique: async (args:Prisma.ClientFindUniqueArgs):Promise<Client | null> => { return await this.core.prisma('client.findUnique',args); },
+        update: async (args: Prisma.ClientUpdateArgs):Promise<Client | null> => { return await this.core.prisma('client.update',args); },
+        updateMany: async (args: Prisma.ClientUpdateManyArgs): Promise<Prisma.BatchPayload | null> => { return await this.core.prisma('client.updateMany',args); },
+        upsert: async (args:Prisma.ClientUpsertArgs):Promise<Client | null> => { return await this.core.prisma('client.upsert',args); },
+        count: async (args?:Prisma.ClientCountArgs): Promise<number | null> => { return await this.core.prisma('client.count',args); },
+        aggregate: async (args:Prisma.ClientAggregateArgs): Promise<Prisma.GetClientAggregateType<Prisma.ClientAggregateArgs> | null> => { return await this.core.prisma('client.aggregate',args); },
+        groupBy: async <T>(args:Prisma.ClientGroupByArgs): Promise<T[] | null> => { return await this.core.prisma('client.groupBy',args); },
+        delete: async (args:Prisma.ClientDeleteArgs): Promise<Client | null> => { return await this.core.prisma('client.delete',args); },
+        deleteMany: async (args?:Prisma.ClientDeleteManyArgs): Promise<Prisma.BatchPayload | null> => { return await this.core.prisma('client.deleteMany',args); },     
+    }
+
+}

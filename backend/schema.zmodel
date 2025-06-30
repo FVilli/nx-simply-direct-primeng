@@ -14,6 +14,10 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+plugin Frontend_DbService {
+     provider = '@simply-direct/zenstack-helper/plugins/db-service'
+}
+
 abstract model BaseEntity {
 
   id              Int           @id @default(autoincrement())
