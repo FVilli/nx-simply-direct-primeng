@@ -22,7 +22,7 @@ interface ExportColumn {
     standalone: true,
     providers: [MessageService, ProductService, ConfirmationService, UsersCrudStore],
     imports: [...NG_MODULES,...PRIME_NG_MODULES, ...COMPONENTS],
-    templateUrl: './users.component.html',
+    templateUrl: './users.html',
 })
 export class UsersCrud {
     readonly store = inject(UsersCrudStore);

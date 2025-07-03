@@ -3,3 +3,14 @@
 @use './assets/layout/layout.scss';
 @use 'primeicons/primeicons.css';
 @use './assets/demo/demo.scss';
+
+
+.responsive-width-dialog {
+  width: 26rem !important;
+  max-width: 26rem !important;
+  
+  @media (min-width: 768px) {
+    width: 34rem !important;
+    max-width: 34rem !important;
+  }
+}
